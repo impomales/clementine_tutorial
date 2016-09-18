@@ -1,0 +1,23 @@
+{
+  "name": "clementine-tutorial",
+  "version": "1.0.0",
+  "description": "tutorial for clementine boilerplate",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/impomales/clementine_tutorial.git"
+  },
+  "author": "Isaias Pomales",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/impomales/clementine_tutorial/issues"
+  },
+  "homepage": "https://github.com/impomales/clementine_tutorial#readme",
+  "dependencies": {
+    "express": "^4.14.0",
+    "mongodb": "^2.2.10"
+  }
+}
