@@ -1,11 +1,11 @@
-'use strict'
+'use strict';
 
 // immediately invoked function express (IIFE)
 
 (function () {
     var addButton = document.querySelector('.btn-add')
     var deleteButton = document.querySelector('.btn-delete')
-    var clickNbr = document.querySelector('.#click-nbr')
+    var clickNbr = document.querySelector('#click-nbr')
     var apiUrl = 'https://clementine-tutorial-impomales.c9users.io/api/clicks'
     
     function ready(fn) {
@@ -31,6 +31,21 @@
     
     function updateClickCount(data) {
         var clicksObject = JSON.parse(data)
+        console.log(clicksObject)
         clickNbr.innerHTML = clicksObject.clicks
     }
+    
+    ready(ajaxRequest('GET', apiUrl, updateClickCount))
+    
+    addButton.addEventListener('click', function() {
+        ajaxRequest('POST', apiUrl, function() {
+            ajaxRequest('GET', apiUrl, updateClickCount)
+        })
+    }, false)
+    
+    deleteButton.addEventListener('click', function() {
+        ajaxRequest('DELETE', apiUrl, function() {
+            ajaxRequest('GET', apiUrl, updateClickCount)
+        })
+    }, false)
 })()

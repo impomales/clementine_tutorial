@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 function clickHandler(db) {
     var clicks = db.collection('clicks')

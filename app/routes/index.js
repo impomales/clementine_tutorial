@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 
 var ClickHandler = require(process.cwd() + '/app/controllers/clickHandler.server.js')
 
