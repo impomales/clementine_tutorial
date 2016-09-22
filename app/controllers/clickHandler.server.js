@@ -1,47 +1,38 @@
 'use strict';
 
-var Clicks = require('../models/clicks.js')
+var Users = require('../models/users.js')
 
 function ClickHandler() {
     this.getClicks = function(req, res) {
-        var clickProjection = {'_id': false}
         
-        Clicks
-            .findOne({}, clickProjection)
+        Users
+            .findOne({'github.id': req.user.github.id}, {'_id': false})
             .exec(function(err, result) {
                 if (err) throw new Error('Query error in collection "clicks".')
             
-                if (result) res.json(result)
-                else {
-                    var newDoc = new Clicks({'clicks': 0})
-                    newDoc.save(function(err, doc) {
-                       if (err) throw new Error('Error in insertion of initial click.')
-                       
-                       res.json(doc)
-                    })
-                }
+                res.json(result.nbrClicks)
             }
         )
     }
     
     this.addClick = function(req, res) {
-        Clicks
-            .findOneAndUpdate({}, { $inc: {'clicks': 1} })
+        Users
+            .findOneAndUpdate({'github.id': req.user.github.id}, { $inc: {'nbrClicks.clicks': 1} })
             .exec(function(err, result) {
                 if (err) throw new Error('Error updating click count to database.')
                 
-                res.json(result)
+                res.json(result.nbrClicks)
             }
         )
     }
     
     this.resetClicks = function(req, res) {
-        Clicks
-            .findOneAndUpdate({}, {'clicks': 0})
+        Users
+            .findOneAndUpdate({'github.id': req.user.github.id}, {'nbrClicks.clicks': 0})
             .exec(function(err, result) {
                 if (err) throw new Error('Error in resetting click count')
                 
-                res.json(result)
+                res.json(result.nbrClicks)
             }
         )
     }
